@@ -55,8 +55,9 @@ def fetchSongsByArtist():
         supa = db.get_supabase_client()
         print(f"Fetching data from Supabase... for query{query}")
         songs_dict = supa.table('Home_song').select("*").ilike("singer", f'%{query}%').execute()
-        
-        singer_detail =  supa.table('Home_singer').select("*").ilike("name" , f"%{query}%").execute()
+        print("Hello")
+        singer_detail =  supa.table('Home_singer').select("*").ilike("name" , f'%{query}%').execute()
+        print("Hello2")
         print(singer_detail)
         return jsonify({"status": "success", "data": songs_dict.data , "singer":singer_detail }), 200
     except Exception as e:
