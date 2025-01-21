@@ -1,17 +1,11 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import requests
-from bs4 import BeautifulSoup
 import logging
-import time
-import random
 from DBManager import Manager
 from Scarpper import SearchResult
 
 app = Flask(__name__)
-# CORS(app)  # Enable CORS for all routes
 CORS(app, resources={r"/api/*": {"origins": "*"}})
-
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -31,7 +25,7 @@ def process_data(input_data):
 
 @app.route("/")
 def Home():
-    return "hejjp"
+    return "Welcome to the API Home Page"
 
 # API route
 @app.route('/api/scrapper', methods=['POST'])
@@ -47,28 +41,26 @@ def process_api():
         logger.error(f"Error processing API request: {e}")
         return jsonify({"status": "error", "message": str(e)}), 500
     
-    
-@app.route('/api/DbManager' , methods=['POST'])
+
+@app.route('/api/DbManager', methods=['POST'])
 def DbProcessor():
     db = Manager()
     
     try:
         data = request.get_json()
+        if 'query' not in data:
+            return jsonify({"status": "error", "message": "Query parameter missing"}), 400
+        
         query = data['query']
-        supa = db.get_supabase_client()    
-        print("Effds")
-        songs_dict =  supa.table('Home_song').select("*").ilike("singer" , f'%{query}%').execute()
+        supa = db.get_supabase_client()
+        print("Fetching data from Supabase...")
+        songs_dict = supa.table('Home_song').select("*").ilike("singer", f'%{query}%').execute()
         print(songs_dict.data)
         return jsonify({"status": "success", "data": songs_dict.data}), 200
     except Exception as e:
         logger.error(f"Error processing API request: {e}")
         return jsonify({"status": "error", "message": str(e)}), 500
-    
-    
-    
-    
-    
+
+
 if __name__ == '__main__':
-
     app.run(debug=True, port=5001)
-
