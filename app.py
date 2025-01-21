@@ -29,7 +29,7 @@ def process_data(input_data):
     return result_data
 
 
-@app.route("")
+@app.route("/")
 def Home():
     return "hejjp"
 
