@@ -53,7 +53,7 @@ def fetchSongsByArtist():
         
         query = data['query']
         supa = db.get_supabase_client()
-        print("Fetching data from Supabase...")
+        print(f"Fetching data from Supabase... for query{query}")
         songs_dict = supa.table('Home_song').select("*").ilike("singer", f'%{query}%').execute()
         print(songs_dict.data)
         return jsonify({"status": "success", "data": songs_dict.data}), 200
