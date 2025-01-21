@@ -17,7 +17,6 @@ CORS(app, resources={r"/api/*": {"origins": "*"}})
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-
 # Example function to process data
 def process_data(input_data):
     sr = SearchResult()
@@ -28,6 +27,11 @@ def process_data(input_data):
     result_data = list(sr.google_custom_search(query, max_results=max_results))
     print("Done")
     return result_data
+
+
+@app.route("")
+def Home():
+    return "hejjp"
 
 # API route
 @app.route('/api/scrapper', methods=['POST'])
