@@ -42,8 +42,8 @@ def process_api():
         return jsonify({"status": "error", "message": str(e)}), 500
     
 
-@app.route('/api/DbManager', methods=['POST'])
-def DbProcessor():
+@app.route('/api/artist/songs', methods=['POST'])
+def fetchSongsByArtist():
     db = Manager()
     
     try:
@@ -63,4 +63,4 @@ def DbProcessor():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001)
+    app.run()
