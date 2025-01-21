@@ -57,7 +57,7 @@ def fetchSongsByArtist():
         songs_dict = supa.table('Home_song').select("*").ilike("singer", f'%{query}%').execute()
         
         singer_detail =  supa.table('Home_singer').select("*").ilike("name" , f"%{query}%").execute()
-        
+        print(singer_detail)
         return jsonify({"status": "success", "data": songs_dict.data , "singer":singer_detail }), 200
     except Exception as e:
         logger.error(f"Error processing API request: {e}")
