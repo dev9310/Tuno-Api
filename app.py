@@ -29,6 +29,11 @@ def process_data(input_data):
 def Home():
     return render_template('welcome.html')
 
+@app.route("/demo")
+def demo():
+    return render_template('demo.html')
+    
+
 # API route
 @app.route('/api/scrapper', methods=['POST'])
 def ScrapperData():

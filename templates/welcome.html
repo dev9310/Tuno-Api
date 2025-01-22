@@ -70,13 +70,21 @@
             color: #555;
         }
         
+        .button-div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
         button {
             align-items: center;
             justify-content: center;
             color: #ffffff;
+            font-size: large;
             background-color: #0077cc;
-            width: 100px;
-            height: 30px;
+            padding: 10px 20px;
+            width: auto;
+            height: auto;
             border-color: #9b9b9b;
             border-radius: 12pc;
         }
@@ -138,12 +146,17 @@
 }</code></pre>
 
         <div class="button-div">
-
+            <button onclick="DemoPage()">Demo</button>
         </div>
-        <button>Demo</button>
+
     </main>
 
     <script src="welcome"></script>
+    <script>
+        function DemoPage() {
+            window.location.href = "/demo";
+        }
+    </script>
     <footer>
         <p>© 2025 Your API Service</p>
     </footer>
