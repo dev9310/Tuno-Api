@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Demo Page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f9;
+        color: #333;
+      }
+
+      header {
+        background-color: #0077cc;
+        color: white;
+        padding: 1rem;
+        text-align: center;
+      }
+
+      main {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      input,
+      button {
+        padding: 10px;
+        margin: 5px 0;
+        width: 100%;
+        font-size: 1rem;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+
+      button {
+        background-color: #0077cc;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #005fa3;
+      }
+
+      pre {
+        background: #282c34;
+        color: #61dafb;
+        padding: 10px;
+        border-radius: 5px;
+        overflow-x: auto;
+      }
+
+      .output {
+        margin-top: 20px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background: #f9f9f9;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>Welcome to the API Demo</h1>
+    </header>
+
+    <main>
+      <h2>API 1: Scrapper API</h2>
+      <p>Fetches results for the input query.</p>
+      <label for="inputData">Enter query:</label>
+      <input type="text" id="inputData" placeholder="Enter your query" />
+      <button onclick="ScrapperMG()">Fetch Results</button>
+      <div id="output" class="output"></div>
+
+      <h2>API 2: Artist Songs API</h2>
+      <p>Fetches songs and singer details for a given artist name.</p>
+      <label for="artistInput">Enter artist name:</label>
+      <input type="text" id="artistInput" placeholder="Enter artist name" />
+      <button onclick="CallDbManager()">Fetch Songs</button>
+      <div id="artistOutput" class="output"></div>
+    </main>
+
+    <script>
+      async function ScrapperMG() {
+        const input = document.getElementById("inputData").value;
+        console.log("Scrapper input:", input);
+
+        const inputData = {
+          data: input,
+        };
+
+        try {
+          const response = await fetch("http://127.0.0.1:5000/api/scrapper", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(inputData),
+          });
+
+          if (!response.ok)
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          const data = await response.json();
+          console.log("Scrapper data:", data);
+          document.getElementById("output").innerHTML = `<pre>${JSON.stringify(
+            data,
+            null,
+            2
+          )}</pre>`;
+        } catch (error) {
+          console.error("Error:", error);
+          document.getElementById(
+            "output"
+          ).textContent = `Error: ${error.message}`;
+        }
+      }
+
+      async function CallDbManager() {
+        const input = document.getElementById("artistInput").value;
+        console.log("Artist input:", input);
+
+        const inputData = {
+          query: input,
+        };
+
+        try {
+          const response = await fetch(
+            "http://127.0.0.1:5000/api/artist/songs",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(inputData),
+            }
+          );
+
+          if (!response.ok)
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          const data = await response.json();
+          console.log("Artist data:", data);
+          document.getElementById(
+            "artistOutput"
+          ).innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+        } catch (error) {
+          console.error("Error:", error);
+          document.getElementById(
+            "artistOutput"
+          ).textContent = `Error: ${error.message}`;
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import logging
+from flask import render_template
 from utils.DBManager import Manager
  
 from utils.Scarpper import SearchResult
@@ -26,13 +27,18 @@ def process_data(input_data):
 
 @app.route("/")
 def Home():
-    return "Welcome to the API Home Page"
+    return render_template('welcome.html')
 
 # API route
 @app.route('/api/scrapper', methods=['POST'])
-def process_api():
+def ScrapperData():
+
+
     try:
+        
+
         data = request.get_json()
+        print(data)
         if not data or 'data' not in data:
             return jsonify({"status": "error", "message": "Invalid input data"}), 400
 
@@ -67,4 +73,4 @@ def fetchSongsByArtist():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
