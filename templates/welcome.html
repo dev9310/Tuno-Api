@@ -128,7 +128,7 @@
         <p>
             Example Curl command for <strong>/api/scrapper</strong>:
         </p>
-        <pre><code>curl -X POST https://tuno-iy2qcv3go-devs-projects-ba669b24.vercel.app/api/scrapper \
+        <pre><code>curl -X POST https://tuno-api.vercel.app/api/scrapper \
 -H "Content-Type: application/json" \
 -d '{"data": "example_query"}'</code></pre>
         <p>
@@ -136,7 +136,7 @@
         </p>
         <pre><code>async function callScrapperAPI() {
   const inputData = { data: "example_query" };
-  const response = await fetch("https://tuno-iy2qcv3go-devs-projects-ba669b24.vercel.app/api/scrapper", {
+  const response = await fetch("https://tuno-api.vercel.app/api/scrapper", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(inputData),
