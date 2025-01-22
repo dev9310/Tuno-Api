@@ -1,8 +1,9 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import logging
-from DBManager import Manager
-from Scarpper import SearchResult
+from utils.DBManager import Manager
+ 
+from utils.Scarpper import SearchResult
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
