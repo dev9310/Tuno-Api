@@ -37,11 +37,7 @@ def demo():
 # API route
 @app.route('/api/scrapper', methods=['POST'])
 def ScrapperData():
-
-
     try:
-        
-
         data = request.get_json()
         print(data)
         if not data or 'data' not in data:
@@ -76,6 +72,24 @@ def fetchSongsByArtist():
         logger.error(f"Error processing API request: {e}")
         return jsonify({"status": "error", "message": str(e)}), 500
 
+
+@app.route('/api/artist/name' , methods= ['POST'])
+def fetchArtistName():
+    print('beckend')
+    db =Manager()
+    try:
+        supa = db.get_supabase_client()
+        print(f'Fetching data from Supabase ... ')
+        singers_dict  = supa.table('Home_singer').select('*').order("song_count", desc=True).limit(20).execute()
+        print(singers_dict)
+        return jsonify({'status':'success', 'data':singers_dict.data }),200
+    
+    except Exception as e :
+        logger.error(f"Error Processing API request {e}")
+        return jsonify({'status':'error' ,  'message':str(e) }),500
+    
+    pass
+    
 
 if __name__ == '__main__':
     app.run(debug=True)
