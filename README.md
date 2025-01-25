@@ -25,10 +25,11 @@ This project provides a simple demo of three APIs that demonstrate various funct
 1. Clone the repository.
 2. Navigate to the project directory.
 3. Run the Flask app using:
+
    ```bash
    python app.py
    ```
-4. Access the application at `http://127.0.0.1:5000/`.
+5. Access the application at `http://127.0.0.1:5000/`.
 
 ---
 
