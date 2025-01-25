@@ -1,10 +1,7 @@
 
-```markdown
 # API Demo Project
 
 This project provides a simple demo of three APIs that demonstrate various functionalities such as web scraping, fetching artist songs, and fetching singer details.
-
----
 
 ## Features
 
@@ -17,7 +14,6 @@ This project provides a simple demo of three APIs that demonstrate various funct
 3. **Artist Name API**
    - Fetches a list of all singers' details using the `/api/artist/name` endpoint.
 
----
 
 ## How to Use
 
