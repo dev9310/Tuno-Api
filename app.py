@@ -88,8 +88,19 @@ def fetchArtistName():
         logger.error(f"Error Processing API request {e}")
         return jsonify({'status':'error' ,  'message':str(e) }),500
     
-    pass
-    
 
+@app.route('/api/allsongs' , methods= ['POST'])
+def fetchSongs():
+    db = Manager()
+    try:
+        supa = db.get_supabase_client()
+        print(f'Fetching data from Supabase ... ')
+        songs_list =  supa.table('Home_song').select('*').execute()
+        return jsonify({'status':'sucess' , 'data' : songs_list.data}),200
+
+    except Exception as e :
+        logger.error(f"Error Processing API request {e}")
+        return jsonify({'status':'error' ,  'message':str(e) }),500
+    
 if __name__ == '__main__':
     app.run(debug=True)
